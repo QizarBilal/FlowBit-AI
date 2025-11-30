@@ -86,7 +86,9 @@ export const MapControls: React.FC<MapControlsProps> = ({
         onClick={onToggleFullscreen}
         className="w-11 h-11 lg:w-12 lg:h-12 bg-white rounded-lg shadow-md hover:shadow-lg transition-all hover:bg-blue-50 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-100"
         aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
-        title={isFullscreen ? 'Exit fullscreen (Esc)' : 'Enter fullscreen (F11)'}
+        title={
+          isFullscreen ? 'Exit fullscreen (Esc)' : 'Enter fullscreen (F11)'
+        }
       >
         {isFullscreen ? (
           <svg

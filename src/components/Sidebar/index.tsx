@@ -78,18 +78,34 @@ export const Sidebar: React.FC<SidebarProps> = ({
       >
         {/* Header */}
         <div className="px-4 lg:px-5 py-4 lg:py-5 border-b border-gray-200 bg-gradient-to-br from-blue-600 via-blue-600 to-blue-700 text-white shadow-md">
-          <h1 className="text-base lg:text-lg font-bold tracking-tight">AOI Creation Tool</h1>
-          <p className="text-xs text-blue-50 mt-1.5 font-medium">Define and manage areas of interest</p>
+          <h1 className="text-base lg:text-lg font-bold tracking-tight">
+            AOI Creation Tool
+          </h1>
+          <p className="text-xs text-blue-50 mt-1.5 font-medium">
+            Define and manage areas of interest
+          </p>
         </div>
 
-        {/* Drawing Tools */}
-        <div className="p-3 lg:p-4 border-b border-gray-200 bg-gray-50">
-          <h2 className="text-xs font-bold text-gray-700 uppercase tracking-wider mb-3 flex items-center gap-2">
-            <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-            </svg>
-            Drawing Tools
-          </h2>
+        {/* Scrollable Content Container */}
+        <div className="flex-1 overflow-y-auto">
+          {/* Drawing Tools */}
+          <div className="p-3 lg:p-4 border-b border-gray-200 bg-gray-50 sticky top-0 z-10">
+            <h2 className="text-xs font-bold text-gray-700 uppercase tracking-wider mb-3 flex items-center gap-2">
+              <svg
+                className="w-4 h-4 text-blue-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                />
+              </svg>
+              Drawing Tools
+            </h2>
           <div className="grid grid-cols-2 gap-2 mb-3">
             {(['point', 'line', 'polygon', 'rectangle'] as FeatureKind[]).map(
               tool => (
@@ -157,11 +173,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
               ↷ Redo
             </button>
           </div>
-        </div>
+          </div>
 
-        {/* Edit AOI Section - Prominently placed */}
-        {selectedFeature && (
-          <div className="p-3 lg:p-4 border-b-4 border-blue-300 bg-gradient-to-br from-blue-50 to-blue-100 shadow-inner">
+          {/* Edit AOI Section - Prominently placed */}
+          {selectedFeature && (
+            <div className="p-3 lg:p-4 border-b-4 border-blue-300 bg-gradient-to-br from-blue-50 to-blue-100 shadow-inner">
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-sm lg:text-base font-bold text-gray-800 flex items-center gap-2">
                 <div
@@ -255,15 +271,25 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 🗑️ Delete AOI
               </button>
             </div>
-          </div>
-        )}
+            </div>
+          )}
 
-        {/* AOI List */}
-        <div className="flex-1 overflow-y-auto p-3 lg:p-4 bg-gray-50">
-          <div className="flex items-center justify-between mb-3">
+          {/* AOI List */}
+          <div className="p-3 lg:p-4 bg-gray-50 min-h-[300px]">
+            <div className="flex items-center justify-between mb-3">
             <h2 className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-2">
-              <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+              <svg
+                className="w-4 h-4 text-blue-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 10h16M4 14h16M4 18h16"
+                />
               </svg>
               AOI List
             </h2>
@@ -275,11 +301,23 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <div className="space-y-2">
             {features.length === 0 ? (
               <div className="text-center py-12 text-gray-500 bg-white rounded-lg border-2 border-dashed border-gray-300">
-                <svg className="w-12 h-12 mx-auto mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                <svg
+                  className="w-12 h-12 mx-auto mb-3 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
                 </svg>
                 <p className="text-sm font-semibold">No AOIs created yet</p>
-                <p className="text-xs mt-1">Use the drawing tools above to start</p>
+                <p className="text-xs mt-1">
+                  Use the drawing tools above to start
+                </p>
               </div>
             ) : (
               features.map(feature => (
@@ -307,6 +345,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 </button>
               ))
             )}
+            </div>
           </div>
         </div>
       </div>
