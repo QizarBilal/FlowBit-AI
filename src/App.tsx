@@ -47,7 +47,7 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <div className="flex h-screen overflow-hidden">
+      <div className="relative flex h-screen overflow-hidden">
         <Sidebar
           features={workspace.features}
           activeFeatureId={workspace.activeFeatureId}

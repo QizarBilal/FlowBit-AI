@@ -3,10 +3,12 @@
 ## ✅ What Was Changed
 
 ### Problem
+
 - NRW WMS satellite layer wasn't working after Netlify deployment
 - CORS restrictions and regional limitations prevented reliable access
 
 ### Solution
+
 **Replaced NRW WMS with Esri World Imagery**
 
 - **Service**: Esri ArcGIS World Imagery
@@ -24,7 +26,7 @@
 1. **Open your Netlify deployment URL**
 2. **Find the Layer Control** (top right corner, white box with "Layers" title)
 3. **Check the "Satellite Imagery" checkbox**
-4. **Expected Result**: 
+4. **Expected Result**:
    - Map should **immediately** switch from street view to satellite imagery
    - No loading delay
    - Works anywhere in the world
@@ -32,6 +34,7 @@
 ## 📝 Technical Details
 
 ### Before (NRW WMS)
+
 ```tsx
 <WMSTileLayer
   url="https://www.wms.nrw.de/geobasis/wms_nw_dop"
@@ -43,6 +46,7 @@
 ```
 
 ### After (Esri World Imagery)
+
 ```tsx
 <TileLayer
   url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
@@ -54,11 +58,13 @@
 ## 🎯 What You Should See
 
 ### With Satellite OFF (default)
+
 - Standard OpenStreetMap view
 - Streets, labels, and city names visible
 - Light colored map
 
 ### With Satellite ON
+
 - High-resolution aerial/satellite photography
 - Actual terrain and building rooftops visible
 - Natural colors (green vegetation, blue water, etc.)

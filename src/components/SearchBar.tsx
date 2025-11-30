@@ -85,7 +85,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onLocationFound }) => {
           onChange={e => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Search location..."
-          className="w-80 pl-10 pr-10 py-2.5 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+          className="w-full lg:w-80 pl-10 pr-10 py-2.5 lg:py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
           aria-label="Search location"
           aria-expanded={showDropdown}
           aria-autocomplete="list"

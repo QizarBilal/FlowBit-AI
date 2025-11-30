@@ -16,10 +16,10 @@ export const MapControls: React.FC<MapControlsProps> = ({
   isFullscreen,
 }) => {
   return (
-    <div className="absolute bottom-6 right-6 z-[1000] flex flex-col gap-2">
+    <div className="absolute bottom-4 lg:bottom-6 right-4 lg:right-6 z-[1000] flex flex-col gap-2">
       <button
         onClick={onZoomIn}
-        className="w-10 h-10 bg-white rounded-lg shadow-lg hover:shadow-xl transition-all hover:bg-gray-50 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-lg shadow-lg hover:shadow-xl transition-all hover:bg-gray-50 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500"
         aria-label="Zoom in"
         title="Zoom in"
       >
@@ -40,7 +40,7 @@ export const MapControls: React.FC<MapControlsProps> = ({
 
       <button
         onClick={onZoomOut}
-        className="w-10 h-10 bg-white rounded-lg shadow-lg hover:shadow-xl transition-all hover:bg-gray-50 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-lg shadow-lg hover:shadow-xl transition-all hover:bg-gray-50 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500"
         aria-label="Zoom out"
         title="Zoom out"
       >
@@ -61,7 +61,7 @@ export const MapControls: React.FC<MapControlsProps> = ({
 
       <button
         onClick={onResetView}
-        className="w-10 h-10 bg-white rounded-lg shadow-lg hover:shadow-xl transition-all hover:bg-gray-50 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-lg shadow-lg hover:shadow-xl transition-all hover:bg-gray-50 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500"
         aria-label="Reset view"
         title="Reset view"
       >
@@ -82,7 +82,7 @@ export const MapControls: React.FC<MapControlsProps> = ({
 
       <button
         onClick={onToggleFullscreen}
-        className="w-10 h-10 bg-white rounded-lg shadow-lg hover:shadow-xl transition-all hover:bg-gray-50 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-lg shadow-lg hover:shadow-xl transition-all hover:bg-gray-50 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500"
         aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
         title={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
       >
