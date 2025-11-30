@@ -85,13 +85,13 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onLocationFound }) => {
           onChange={e => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Search location..."
-          className="w-full lg:w-80 pl-10 pr-10 py-2.5 lg:py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+          className="w-full pl-11 pr-11 py-3 lg:py-3.5 bg-white/95 backdrop-blur-sm border-2 border-gray-200 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm lg:text-base font-medium transition-all"
           aria-label="Search location"
           aria-expanded={showDropdown}
           aria-autocomplete="list"
         />
         <svg
-          className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
+          className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -105,25 +105,25 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onLocationFound }) => {
           />
         </svg>
         {loading && (
-          <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-            <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+          <div className="absolute right-3.5 top-1/2 transform -translate-y-1/2">
+            <div className="w-5 h-5 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
           </div>
         )}
       </div>
 
       {showDropdown && results.length > 0 && (
-        <div className="absolute top-full mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-xl max-h-96 overflow-y-auto z-[1001]">
+        <div className="absolute top-full mt-2 w-full bg-white/95 backdrop-blur-sm border-2 border-gray-200 rounded-xl shadow-2xl max-h-80 lg:max-h-96 overflow-y-auto z-[1001]">
           {results.map(result => (
             <button
               key={result.place_id}
               onClick={() => handleSelectResult(result)}
-              className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-b-0 focus:outline-none focus:bg-blue-50"
+              className="w-full px-4 py-3 lg:py-3.5 text-left hover:bg-blue-50 transition-all border-b border-gray-100 last:border-b-0 focus:outline-none focus:bg-blue-50 active:bg-blue-100"
               role="option"
               aria-selected={false}
             >
-              <div className="flex items-start gap-2">
+              <div className="flex items-start gap-3">
                 <svg
-                  className="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5"
+                  className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -142,10 +142,10 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onLocationFound }) => {
                   />
                 </svg>
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm font-medium text-gray-900 truncate">
+                  <div className="text-sm font-semibold text-gray-900 truncate">
                     {result.display_name.split(',')[0]}
                   </div>
-                  <div className="text-xs text-gray-500 truncate mt-0.5">
+                  <div className="text-xs text-gray-500 truncate mt-1 leading-relaxed">
                     {result.display_name}
                   </div>
                 </div>

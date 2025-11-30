@@ -16,15 +16,15 @@ export const MapControls: React.FC<MapControlsProps> = ({
   isFullscreen,
 }) => {
   return (
-    <div className="absolute bottom-4 lg:bottom-6 right-4 lg:right-6 z-[1000] flex flex-col gap-2">
+    <div className="absolute bottom-4 lg:bottom-6 right-4 lg:right-6 z-[1000] flex flex-col gap-2 bg-white/80 backdrop-blur-sm rounded-xl p-2 shadow-xl border border-gray-200">
       <button
         onClick={onZoomIn}
-        className="w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-lg shadow-lg hover:shadow-xl transition-all hover:bg-gray-50 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-11 h-11 lg:w-12 lg:h-12 bg-white rounded-lg shadow-md hover:shadow-lg transition-all hover:bg-blue-50 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-100"
         aria-label="Zoom in"
-        title="Zoom in"
+        title="Zoom in (+)"
       >
         <svg
-          className="w-5 h-5 text-gray-700"
+          className="w-5 h-5 lg:w-6 lg:h-6 text-gray-700"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -32,7 +32,7 @@ export const MapControls: React.FC<MapControlsProps> = ({
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth={2}
+            strokeWidth={2.5}
             d="M12 4v16m8-8H4"
           />
         </svg>
@@ -40,12 +40,12 @@ export const MapControls: React.FC<MapControlsProps> = ({
 
       <button
         onClick={onZoomOut}
-        className="w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-lg shadow-lg hover:shadow-xl transition-all hover:bg-gray-50 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-11 h-11 lg:w-12 lg:h-12 bg-white rounded-lg shadow-md hover:shadow-lg transition-all hover:bg-blue-50 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-100"
         aria-label="Zoom out"
-        title="Zoom out"
+        title="Zoom out (-)"
       >
         <svg
-          className="w-5 h-5 text-gray-700"
+          className="w-5 h-5 lg:w-6 lg:h-6 text-gray-700"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -53,20 +53,22 @@ export const MapControls: React.FC<MapControlsProps> = ({
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth={2}
+            strokeWidth={2.5}
             d="M20 12H4"
           />
         </svg>
       </button>
 
+      <div className="h-px bg-gray-200 my-1"></div>
+
       <button
         onClick={onResetView}
-        className="w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-lg shadow-lg hover:shadow-xl transition-all hover:bg-gray-50 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-11 h-11 lg:w-12 lg:h-12 bg-white rounded-lg shadow-md hover:shadow-lg transition-all hover:bg-blue-50 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-100"
         aria-label="Reset view"
-        title="Reset view"
+        title="Reset view to default"
       >
         <svg
-          className="w-5 h-5 text-gray-700"
+          className="w-5 h-5 lg:w-6 lg:h-6 text-gray-700"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -82,9 +84,9 @@ export const MapControls: React.FC<MapControlsProps> = ({
 
       <button
         onClick={onToggleFullscreen}
-        className="w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-lg shadow-lg hover:shadow-xl transition-all hover:bg-gray-50 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-11 h-11 lg:w-12 lg:h-12 bg-white rounded-lg shadow-md hover:shadow-lg transition-all hover:bg-blue-50 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-100"
         aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
-        title={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
+        title={isFullscreen ? 'Exit fullscreen (Esc)' : 'Enter fullscreen (F11)'}
       >
         {isFullscreen ? (
           <svg

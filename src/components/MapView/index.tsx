@@ -456,11 +456,11 @@ export const MapView: React.FC<MapViewProps> = ({
 
   return (
     <div className="flex-1 relative" ref={containerRef}>
-      <div className="absolute top-4 left-4 lg:left-4 z-[1000] max-w-[calc(100vw-100px)] lg:max-w-md">
+      <div className="absolute top-4 left-16 lg:left-20 z-[1000] right-4 max-w-md">
         <SearchBar onLocationFound={handleLocationSearch} />
       </div>
 
-      <div className="absolute top-20 lg:top-4 right-4 z-[1000]">
+      <div className="absolute top-4 right-4 z-[1000]">
         <LayerControl
           showWMSLayer={showSatellite}
           showAOILayer={showFeatures}
