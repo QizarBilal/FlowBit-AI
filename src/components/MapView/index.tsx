@@ -507,6 +507,7 @@ export const MapView: React.FC<MapViewProps> = ({
             format="image/png"
             transparent={true}
             opacity={0.7}
+            version="1.3.0"
             attribution='&copy; <a href="https://www.bezreg-koeln.nrw.de/geobasis-nrw">Geobasis NRW</a>'
           />
         )}
@@ -533,6 +534,10 @@ export const MapView: React.FC<MapViewProps> = ({
                 activeTool === 'polygon'
                   ? {
                       allowIntersection: false,
+                      drawError: {
+                        color: '#e74c3c',
+                        message: 'You cannot draw shapes that intersect',
+                      },
                       shapeOptions: {
                         color: '#3b82f6',
                         weight: 3,
@@ -551,6 +556,7 @@ export const MapView: React.FC<MapViewProps> = ({
                         fillOpacity: 0.3,
                       },
                       repeatMode: false,
+                      showArea: true,
                     }
                   : false,
               circle:
