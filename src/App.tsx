@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { MapView } from './components/MapView';
 import { Sidebar } from './components/Sidebar';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { useWorkspace } from './state/workspace';
 
 function App() {
@@ -45,39 +46,41 @@ function App() {
   }, [undo, redo, setTool, setEditMode, selectFeature]);
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      <Sidebar
-        features={workspace.features}
-        activeFeatureId={workspace.activeFeatureId}
-        onSelectFeature={selectFeature}
-        onUpdateFeature={updateFeature}
-        onDeleteFeature={deleteFeature}
-        activeTool={workspace.activeTool}
-        isEditMode={workspace.isEditMode}
-        onActivateTool={setTool}
-        onToggleEditMode={setEditMode}
-        onUndo={undo}
-        onRedo={redo}
-        canUndo={canUndo}
-        canRedo={canRedo}
-      />
-      <MapView
-        features={workspace.features}
-        activeFeatureId={workspace.activeFeatureId}
-        showSatellite={workspace.showSatellite}
-        showFeatures={workspace.showFeatures}
-        activeTool={workspace.activeTool}
-        isEditMode={workspace.isEditMode}
-        viewport={workspace.viewport}
-        onAddFeature={addFeature}
-        onUpdateFeature={updateFeature}
-        onSelectFeature={selectFeature}
-        onToggleSatellite={toggleSatellite}
-        onToggleFeatures={toggleFeatures}
-        onViewportChange={setViewport}
-        onActivateTool={setTool}
-      />
-    </div>
+    <ErrorBoundary>
+      <div className="flex h-screen overflow-hidden">
+        <Sidebar
+          features={workspace.features}
+          activeFeatureId={workspace.activeFeatureId}
+          onSelectFeature={selectFeature}
+          onUpdateFeature={updateFeature}
+          onDeleteFeature={deleteFeature}
+          activeTool={workspace.activeTool}
+          isEditMode={workspace.isEditMode}
+          onActivateTool={setTool}
+          onToggleEditMode={setEditMode}
+          onUndo={undo}
+          onRedo={redo}
+          canUndo={canUndo}
+          canRedo={canRedo}
+        />
+        <MapView
+          features={workspace.features}
+          activeFeatureId={workspace.activeFeatureId}
+          showSatellite={workspace.showSatellite}
+          showFeatures={workspace.showFeatures}
+          activeTool={workspace.activeTool}
+          isEditMode={workspace.isEditMode}
+          viewport={workspace.viewport}
+          onAddFeature={addFeature}
+          onUpdateFeature={updateFeature}
+          onSelectFeature={selectFeature}
+          onToggleSatellite={toggleSatellite}
+          onToggleFeatures={toggleFeatures}
+          onViewportChange={setViewport}
+          onActivateTool={setTool}
+        />
+      </div>
+    </ErrorBoundary>
   );
 }
 

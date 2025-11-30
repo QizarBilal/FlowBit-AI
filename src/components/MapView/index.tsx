@@ -118,11 +118,19 @@ const GeometryRenderer = React.memo<{
   isActive: boolean;
   onSelect: () => void;
 }>(({ feature, isActive, onSelect }) => {
+  const [isHovered, setIsHovered] = React.useState(false);
   const color = feature.color;
-  const opacity = isActive ? 0.8 : 0.6;
-  const weight = isActive ? 3 : 2;
+  const opacity = isActive ? 0.8 : isHovered ? 0.7 : 0.6;
+  const weight = isActive ? 3 : isHovered ? 3 : 2;
 
-  const handlers = useMemo(() => ({ click: onSelect }), [onSelect]);
+  const handlers = useMemo(
+    () => ({
+      click: onSelect,
+      mouseover: () => setIsHovered(true),
+      mouseout: () => setIsHovered(false),
+    }),
+    [onSelect]
+  );
 
   if (feature.type === 'point') {
     const [lat, lng] = feature.coordinates[0] as number[];
@@ -580,6 +588,20 @@ export const MapView: React.FC<MapViewProps> = ({
         <div className="absolute bottom-6 left-6 z-[1000] bg-yellow-50 border border-yellow-200 rounded-lg px-4 py-2 shadow-lg">
           <p className="text-sm text-yellow-800">
             Large dataset detected. Performance optimizations active.
+          </p>
+        </div>
+      )}
+
+      {activeTool && (
+        <div className="absolute top-6 left-1/2 transform -translate-x-1/2 z-[1000] bg-blue-600 text-white rounded-lg px-4 py-2 shadow-lg">
+          <p className="text-sm font-medium">
+            {activeTool === 'point' && 'Click on the map to place a point'}
+            {activeTool === 'line' &&
+              'Click to add vertices. Double-click to finish.'}
+            {activeTool === 'polygon' &&
+              'Click to add vertices. Click first point or double-click to close shape.'}
+            {activeTool === 'rectangle' && 'Click and drag to draw a rectangle'}
+            {activeTool === 'circle' && 'Click center, then drag to set radius'}
           </p>
         </div>
       )}
