@@ -118,9 +118,20 @@ const GeometryRenderer = React.memo<{
   onSelect: () => void;
 }>(({ feature, isActive, onSelect }) => {
   const [isHovered, setIsHovered] = React.useState(false);
+  const layerRef = useRef<L.Layer | null>(null);
   const color = feature.color;
   const opacity = isActive ? 0.8 : isHovered ? 0.7 : 0.6;
   const weight = isActive ? 3 : isHovered ? 3 : 2;
+
+  // Store leaflet ID on the feature object for editing
+  useEffect(() => {
+    if (layerRef.current) {
+      const leafletId = (layerRef.current as L.Layer & { _leaflet_id: number })
+        ._leaflet_id;
+      (feature as AreaOfInterest & { _leafletId?: number })._leafletId =
+        leafletId;
+    }
+  }, [feature]);
 
   const handlers = useMemo(
     () => ({
@@ -131,9 +142,24 @@ const GeometryRenderer = React.memo<{
     [onSelect]
   );
 
+  const refHandler = useCallback(
+    (ref: L.Layer | null) => {
+      layerRef.current = ref;
+      if (ref) {
+        const leafletId = (ref as L.Layer & { _leaflet_id: number })
+          ._leaflet_id;
+        (feature as AreaOfInterest & { _leafletId?: number })._leafletId =
+          leafletId;
+      }
+    },
+    [feature]
+  );
+
   if (feature.type === 'point') {
     const [lat, lng] = feature.coordinates[0] as number[];
-    return <Marker position={[lat, lng]} eventHandlers={handlers} />;
+    return (
+      <Marker ref={refHandler} position={[lat, lng]} eventHandlers={handlers} />
+    );
   }
 
   if (feature.type === 'line') {
@@ -142,6 +168,7 @@ const GeometryRenderer = React.memo<{
     );
     return (
       <Polyline
+        ref={refHandler}
         positions={positions}
         color={color}
         opacity={opacity}
@@ -155,6 +182,7 @@ const GeometryRenderer = React.memo<{
     const [lat, lng] = feature.coordinates[0] as number[];
     return (
       <Circle
+        ref={refHandler}
         center={[lat, lng]}
         radius={feature.radius}
         color={color}
@@ -172,6 +200,7 @@ const GeometryRenderer = React.memo<{
   );
   return (
     <Polygon
+      ref={refHandler}
       positions={positions}
       color={color}
       fillColor={color}
@@ -509,9 +538,9 @@ export const MapView: React.FC<MapViewProps> = ({
           />
         )}
 
-        {renderedFeatures}
-
         <FeatureGroup ref={featureGroupRef}>
+          {renderedFeatures}
+
           <EditControl
             position="topright"
             onCreated={handleShapeCreated}
