@@ -93,19 +93,11 @@ const InteractionHandler: React.FC<{
 
   useEffect(() => {
     if (isDrawing) {
-      map.dragging.disable();
-      map.touchZoom.disable();
+      // Only disable double-click zoom to prevent interference with polygon completion
+      // Keep other interactions enabled for smoother drawing experience
       map.doubleClickZoom.disable();
-      map.scrollWheelZoom.disable();
-      map.boxZoom.disable();
-      map.keyboard.disable();
     } else {
-      map.dragging.enable();
-      map.touchZoom.enable();
       map.doubleClickZoom.enable();
-      map.scrollWheelZoom.enable();
-      map.boxZoom.enable();
-      map.keyboard.enable();
     }
   }, [isDrawing, map]);
 
@@ -571,6 +563,7 @@ export const MapView: React.FC<MapViewProps> = ({
                       },
                       repeatMode: false,
                       showArea: true,
+                      showLength: true,
                     }
                   : false,
               rectangle:
