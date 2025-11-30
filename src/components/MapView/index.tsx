@@ -8,7 +8,6 @@ import React, {
 import {
   MapContainer,
   TileLayer,
-  WMSTileLayer,
   Marker,
   Polyline,
   Polygon,
@@ -495,20 +494,18 @@ export const MapView: React.FC<MapViewProps> = ({
           isDrawing={isDrawing}
         />
 
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        />
+        {!showSatellite && (
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          />
+        )}
 
         {showSatellite && (
-          <WMSTileLayer
-            url="https://www.wms.nrw.de/geobasis/wms_nw_dop"
-            layers="nw_dop_rgb"
-            format="image/png"
-            transparent={true}
-            opacity={0.7}
-            version="1.3.0"
-            attribution='&copy; <a href="https://www.bezreg-koeln.nrw.de/geobasis-nrw">Geobasis NRW</a>'
+          <TileLayer
+            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+            attribution='&copy; <a href="https://www.esri.com/">Esri</a> &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+            maxZoom={19}
           />
         )}
 

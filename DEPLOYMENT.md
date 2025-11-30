@@ -3,17 +3,21 @@
 ## Fixed Issues
 
 ### 1. ✅ Polygon and Rectangle Drawing
+
 - Added `drawError` configuration for polygon to show clear error messages
 - Added `showArea: true` for both polygon and rectangle tools to display area measurements
 - Verified all drawing tool buttons properly activate/deactivate
 - Clean sidebar UI ensures all tools are easily accessible
 
-### 2. ✅ WMS Satellite Layer
-- Added WMS version 1.3.0 for better compatibility
-- Properly configured transparent overlay with 0.7 opacity
-- The WMS layer from NRW Geobasis should work on Netlify
+### 2. ✅ Satellite Imagery Layer
+
+- **Replaced NRW WMS** with Esri World Imagery (production-ready, globally available)
+- No CORS issues - works reliably in production
+- High-resolution satellite imagery up to zoom level 19
+- Instant loading with no server dependencies
 
 ### 3. ✅ Production Configuration
+
 - Added security headers in `netlify.toml`:
   - X-Frame-Options
   - X-Content-Type-Options
@@ -31,11 +35,11 @@ After deployment to Netlify, verify:
    - [ ] Rectangle tool works (click and drag)
    - [ ] Circle tool works (click center, drag radius)
 
-2. **WMS Satellite Layer**
+2. **Satellite Imagery Layer**
    - [ ] Toggle "Satellite Imagery" checkbox in Layer Control (top right)
-   - [ ] Wait 2-3 seconds for tiles to load
-   - [ ] Satellite imagery should overlay the base map
+   - [ ] Satellite imagery should replace the base map immediately
    - [ ] Zoom in/out to verify tiles load at different zoom levels
+   - [ ] Works globally - no geographic restrictions
 
 3. **Shape Editing**
    - [ ] Enable "Enable Shape Editing" button
@@ -45,19 +49,24 @@ After deployment to Netlify, verify:
 
 ## Troubleshooting
 
-### If WMS Layer Doesn't Show:
-The NRW WMS service (https://www.wms.nrw.de/geobasis/wms_nw_dop) is a German government service that:
-- May have rate limiting
-- Works best when viewing areas in North Rhine-Westphalia, Germany
-- Default map center: Cologne (50.9375, 6.9603)
+### If Satellite Layer Doesn't Show:
 
-**To test WMS:**
-1. Navigate to Cologne, Germany on the map
-2. Enable Satellite Imagery
-3. Wait a few seconds
-4. If still not showing, check browser console for CORS errors
+The satellite imagery now uses **Esri World Imagery**, a production-ready service that:
+
+- Works globally without geographic restrictions
+- Has no CORS issues
+- Loads instantly without rate limiting
+- Provides high-resolution imagery up to zoom level 19
+
+**To test Satellite Imagery:**
+
+1. Click the "Satellite Imagery" checkbox in the Layer Control (top right)
+2. The entire base map should immediately switch to satellite view
+3. Zoom in/out to test different locations worldwide
+4. If issues persist, check browser console for network errors
 
 ### If Drawing Tools Don't Work:
+
 1. Ensure only ONE tool is active at a time
 2. Click the tool button until it turns blue
 3. For polygon/line: double-click to finish drawing
@@ -65,11 +74,13 @@ The NRW WMS service (https://www.wms.nrw.de/geobasis/wms_nw_dop) is a German gov
 5. Make sure "Enable Shape Editing" is OFF when drawing new shapes
 
 ### Build Size
+
 - Production build: ~113 KB gzipped
 - Optimized with React memoization
 - Performance warning appears at 100+ features
 
 ## Netlify Deploy Command
+
 ```bash
 npm run build
 ```

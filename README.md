@@ -13,13 +13,13 @@ npm test       # Run E2E tests
 
 What It Does
 
-The application provides drawing tools for creating points, lines, polygons, rectangles, and circles directly on the map. Users can edit shapes by dragging vertices, toggle between base map and NRW satellite imagery (WMS), and search for locations using Nominatim geocoding. Undo/redo functionality is available with keyboard shortcuts (Ctrl+Z / Ctrl+Shift+Z), and all features plus viewport state auto-save to localStorage. Each area of interest can be named, described, and color-coded.
+The application provides drawing tools for creating points, lines, polygons, rectangles, and circles directly on the map. Users can edit shapes by dragging vertices, toggle between base map and Esri World satellite imagery, and search for locations using Nominatim geocoding. Undo/redo functionality is available with keyboard shortcuts (Ctrl+Z / Ctrl+Shift+Z), and all features plus viewport state auto-save to localStorage. Each area of interest can be named, described, and color-coded.
 
 Technical Approach
 
 Map Library Selection
 
-Leaflet with React-Leaflet was selected after evaluating several options. The drawing plugin (leaflet-draw) provides native editing support, WMS layer integration is straightforward, and the library is lighter than alternatives like OpenLayers and MapLibre. The ecosystem is mature with good documentation.
+Leaflet with React-Leaflet was selected after evaluating several options. The drawing plugin (leaflet-draw) provides native editing support, satellite layer integration is straightforward, and the library is lighter than alternatives like OpenLayers and MapLibre. The ecosystem is mature with good documentation.
 
 State Management
 
@@ -43,7 +43,7 @@ Styling: Tailwind CSS 3.4
 Mapping: Leaflet 1.9.4, React-Leaflet 4.2.1
 Drawing: Leaflet-Draw 1.0.4
 Testing: Playwright 1.40
-WMS Provider: NRW Geobasis DOP
+Satellite Imagery: Esri World Imagery
 
 Project Structure
 
