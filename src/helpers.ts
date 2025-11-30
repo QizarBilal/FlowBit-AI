@@ -37,10 +37,3 @@ export function pickColor(): string {
   ];
   return goodColors[Math.floor(Math.random() * goodColors.length)];
 }
-
-// not using this anywhere yet but might be useful
-// const formatFileSize = (bytes: number): string => {
-//   if (bytes < 1024) return bytes + ' B';
-//   if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-//   return (bytes / 1048576).toFixed(1) + ' MB';
-// };

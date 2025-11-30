@@ -11,8 +11,6 @@ import {
 import { toGeoJSON } from '../services/geo';
 import { makeId, pickColor } from '../helpers';
 
-// TODO: maybe split this into smaller hooks later, it's getting big
-
 export function useWorkspace() {
   const savedViewport = loadViewport();
   const savedLayers = loadLayerPrefs();
@@ -36,7 +34,6 @@ export function useWorkspace() {
   // load saved features on mount
   useEffect(() => {
     const loaded = loadFeatures();
-    console.log('Loaded features:', loaded.length);
     setWorkspace(prev => ({ ...prev, features: loaded }));
   }, []);
 

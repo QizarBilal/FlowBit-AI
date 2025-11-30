@@ -1,5 +1,4 @@
 import { FeatureKind } from '../types';
-// import L from 'leaflet'; // might need this later for more complex geo stuff
 
 // converts our coordinate format to proper GeoJSON
 // (swaps lat/lng to lng/lat because GeoJSON is weird)
@@ -180,19 +179,3 @@ export function calcArea(coords: number[][]): number {
 export function tooManyPoints(count: number): boolean {
   return count > 100;
 }
-
-// unused but keeping for reference
-// function calcDistance(p1: number[], p2: number[]): number {
-//   const [lat1, lng1] = p1;
-//   const [lat2, lng2] = p2;
-//   const R = 6371000;
-//   const dLat = ((lat2 - lat1) * Math.PI) / 180;
-//   const dLng = ((lng2 - lng1) * Math.PI) / 180;
-//   const a =
-//     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-//     Math.cos((lat1 * Math.PI) / 180) *
-//       Math.cos((lat2 * Math.PI) / 180) *
-//       Math.sin(dLng / 2) *
-//       Math.sin(dLng / 2);
-//   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-// }
