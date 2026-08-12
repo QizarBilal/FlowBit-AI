@@ -1,104 +1,136 @@
-# AOI Creation Tool
+<div align="center">
 
-An interactive web application for drawing and managing Areas of Interest on a map with satellite imagery overlay support.
+# FLOWBIT AI
 
-Getting Started
+### AREA-OF-INTEREST WORKSPACE
+
+![React](https://img.shields.io/badge/React-18-2563eb?style=for-the-badge&logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.3-1d4ed8?style=for-the-badge&logo=typescript&logoColor=white)
+![Leaflet](https://img.shields.io/badge/Leaflet-spatial_canvas-22c55e?style=for-the-badge&logo=leaflet&logoColor=white)
+![Playwright](https://img.shields.io/badge/Playwright-E2E-0f172a?style=for-the-badge&logo=playwright)
+![MIT](https://img.shields.io/badge/license-MIT-e2e8f0?style=for-the-badge&logoColor=111827)
+
+**Draw, edit, organize, and persist geospatial areas of interest directly in the browser.**
+
+[Open the live workspace](https://flowbit-ai.netlify.app) · [API notes](API_DOCUMENTATION.md) · [Development journal](DEV_NOTES.md)
+
+</div>
+
+## Mission control
+
+The image below is a genuine capture of the deployed application. Map tiles are supplied at runtime by external providers, so their availability can vary while the controls and workspace load independently.
+
+[![FlowBit-AI deployed AOI workspace](./live-aoi-workspace.png)](https://flowbit-ai.netlify.app)
+
+## From blank map to reusable geometry
+
+```mermaid
+flowchart LR
+    L["Locate an area"] --> D["Draw point, line, polygon, rectangle, or circle"]
+    D --> M["Name, describe, and color the AOI"]
+    M --> E["Edit vertices or geometry"]
+    E --> H["Undo / redo shape history"]
+    H --> P["Persist features + viewport locally"]
+    P --> X["Export GeoJSON"]
+```
+
+## Operator console
+
+| Surface | Capability |
+|---|---|
+| Drawing toolbar | Point, line, polygon, rectangle, and circle creation |
+| Shape editor | Vertex and geometry adjustment through Leaflet Draw |
+| AOI registry | Named, described, color-coded feature collection |
+| Map layers | OpenStreetMap base tiles, Esri World Imagery, AOI visibility |
+| Location search | Nominatim geocoding and viewport movement |
+| History | Shape-focused undo and redo, including keyboard shortcuts |
+| Persistence | Features, viewport, and layer preferences in `localStorage` |
+| Interchange | GeoJSON export for downstream spatial tools |
+
+## Spatial architecture
+
+```mermaid
+flowchart TB
+    UI["React components"] --> WS["useWorkspace state hook"]
+    WS --> FC["GeoJSON FeatureCollection"]
+    WS --> HS["Undo / redo stacks"]
+    WS --> VP["Viewport + layer preferences"]
+    FC --> MAP["React-Leaflet + Leaflet Draw"]
+    VP --> MAP
+    WS --> STORE["Browser storage service"]
+    SEARCH["Nominatim geocoding"] --> MAP
+    TILES["OSM / Esri tile services"] --> MAP
+```
+
+The application deliberately keeps state in one custom hook instead of adding a global state library. That fits a single-workspace product while keeping feature collection, viewport, history, and persistence behavior testable.
+
+## Launch coordinates
 
 ```bash
+git clone https://github.com/QizarBilal/FlowBit-AI.git
+cd FlowBit-AI
 npm install
-npm run dev    # Development server on localhost:5173
-npm run build  # Production build
-npm test       # Run E2E tests
+npm run dev
 ```
 
-What It Does
-
-The application provides drawing tools for creating points, lines, polygons, rectangles, and circles directly on the map. Users can edit shapes by dragging vertices, toggle between base map and Esri World satellite imagery, and search for locations using Nominatim geocoding. Undo/redo functionality is available with keyboard shortcuts (Ctrl+Z / Ctrl+Shift+Z), and all features plus viewport state auto-save to localStorage. Each area of interest can be named, described, and color-coded.
-
-Technical Approach
-
-Map Library Selection
-
-Leaflet with React-Leaflet was selected after evaluating several options. The drawing plugin (leaflet-draw) provides native editing support, satellite layer integration is straightforward, and the library is lighter than alternatives like OpenLayers and MapLibre. The ecosystem is mature with good documentation.
-
-State Management
-
-A custom React hook called useWorkspace handles all application state. This includes feature collection management, undo/redo stack implementation, viewport persistence, and layer visibility preferences. This pattern avoids the complexity of Redux or MobX while keeping things organized in a single-view application.
-
-Storage Strategy
-
-LocalStorage provides simple key-value persistence that works well for coordinate arrays. The 5-10MB quota is sufficient for 500+ features, and the synchronous API eliminates async complexity. No additional dependencies are needed since browser support is built-in.
-
-Performance
-
-Component memoization prevents unnecessary re-renders. A performance warning appears at 100+ features. Coordinate simplification utilities are available but not enabled by default. State updates are efficient with selective re-rendering.
-
-Performance ranges from optimal with under 50 features to requiring memoization and careful updates beyond 200 features. Between 50-100 features, rendering is smooth with minor delays on bulk operations. The 100-200 range hits the warning threshold where simplification is recommended.
-
-Technology Stack
-
-Frontend: React 18.3, TypeScript 5.3
-Build Tool: Vite 5.0
-Styling: Tailwind CSS 3.4
-Mapping: Leaflet 1.9.4, React-Leaflet 4.2.1
-Drawing: Leaflet-Draw 1.0.4
-Testing: Playwright 1.40
-Satellite Imagery: Esri World Imagery
-
-Project Structure
-
-```
-src/
-├── App.tsx
-├── main.tsx
-├── types.ts
-├── helpers.ts
-├── components/
-│   ├── MapView/
-│   ├── Sidebar/
-│   ├── SearchBar.tsx
-│   ├── MapControls.tsx
-│   └── LayerControl.tsx
-├── state/
-│   └── workspace.ts
-└── services/
-    ├── storage.ts
-    ├── geo.ts
-    └── geocoding.ts
-```
-
-Testing
-
-Playwright handles end-to-end testing for critical user workflows:
+Open the Vite URL printed in the terminal, normally `http://localhost:5173`.
 
 ```bash
+npm run build
 npm test
 npx playwright test --ui
-npx playwright show-report
 ```
 
-Test files cover shape creation and persistence (drawing.spec.ts), layer visibility and state management (layers.spec.ts), and history operations with keyboard shortcuts (undo.spec.ts).
+## Repository atlas
 
-Development Time
+```text
+src/
+├── components/
+│   ├── MapView/          Leaflet canvas and draw/edit integration
+│   ├── Sidebar/          tools and AOI collection
+│   ├── SearchBar.tsx     location lookup
+│   ├── MapControls.tsx   viewport actions
+│   └── LayerControl.tsx  tile and feature visibility
+├── state/workspace.ts    central workspace behavior
+├── services/             storage, geometry, geocoding
+├── helpers.ts            coordinate utilities
+├── types.ts              spatial contracts
+└── App.tsx               application composition
+```
 
-The project took roughly 28 hours over 4 days. Map library evaluation and setup took 4 hours. Drawing tool implementation required 6 hours. Edit and delete functionality needed 3 hours. UI components including sidebar and controls took 4 hours. The undo/redo system took 3 hours. Search and layer controls needed 2 hours. Persistence layer implementation was 2 hours. Testing and documentation took 2 hours. Bug fixes and polish rounded out the last 2 hours.
+## Performance contour
 
-Implementation Challenges
+| Feature count | Expected experience | Recommended response |
+|---:|---|---|
+| `< 50` | Optimal interaction | No special handling |
+| `50–100` | Smooth with minor bulk delays | Watch render frequency |
+| `100–200` | Warning threshold | Consider coordinate simplification |
+| `> 200` | Increasing edit/render pressure | Memoize aggressively and profile |
 
-Leaflet-Draw expects UI-driven interactions rather than programmatic control. Direct handler manipulation via the \_toolbars property was necessary for React prop-driven activation. This felt hacky but was the only way to integrate with React's component model.
+## Known terrain
 
-Edit mode conflicts arose when simultaneous drawing and editing both tried to handle map interactions. Careful event handler management prevented map panning from interfering with vertex manipulation. The solution involved disabling certain map interactions during active drawing sessions.
+- Circle geometry behaves differently between creation and edit modes.
+- History covers shape changes, not name or description edits.
+- Mobile touch drawing works but needs interaction tuning.
+- Export currently targets GeoJSON; shapefile output is not included.
+- Tile layers and location search rely on third-party network services and their usage policies.
 
-State persistence initially tried to save the entire workspace state, which caused deserialization issues on reload. The fix was to persist only feature data and viewport state, then reconstruct UI state from that minimal data on load.
+## Verification route
 
-Known Limitations
+- Create, edit, and delete every supported geometry.
+- Refresh and confirm features, viewport, and layer choices return.
+- Exercise `Ctrl+Z` and `Ctrl+Shift+Z` through multiple shape mutations.
+- Toggle satellite and AOI layers independently.
+- Search for a place and confirm the map recenters.
+- Export the workspace and validate the resulting GeoJSON.
+- Test the warning boundary with a large feature collection.
 
-Circle editing behaves differently between create and edit modes due to how Leaflet-Draw handles circle geometry. The undo/redo system only tracks shape changes, not property edits like name or description changes. Mobile touch interactions work but need optimization for a better experience. Export is limited to GeoJSON format with no shapefile support.
+## License
 
-Additional Documentation
+Released under the [MIT License](LICENSE).
 
-DEV_NOTES.md contains the development journal and implementation decisions. ER_DIAGRAM.md documents the data model and relationships. API_DOCUMENTATION.md covers component APIs and usage patterns.
+<div align="center">
 
-License
+`LOCATE · DRAW · REFINE · PERSIST · EXPORT`
 
-MIT
+</div>
